@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { LoginResponse } from './dto/login-response';
 import { LoginUserInput } from './dto/login-user.input';
@@ -16,8 +17,7 @@ export class AuthService {
     return null;
   }
 
-  async login(loginUserInput: LoginUserInput): Promise<LoginResponse> {
-    const user = await this.usersService.findOne(loginUserInput.username);
+  async login(user: User): Promise<LoginResponse> {
     const { password, ...result } = user;
     return {
       // access_token: this.jwtService.sign(payload),
