@@ -20,7 +20,6 @@ export class UsersService {
       username: 'janep',
       password: 'test123',
     },
-    ,
   ];
 
   create(createUserInput: CreateUserInput) {
@@ -28,6 +27,8 @@ export class UsersService {
       ...createUserInput,
       id: this.users.length + 1,
     };
+
+    console.log('user', user);
 
     this.users.push(user);
     return user;

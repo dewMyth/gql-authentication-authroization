@@ -11,16 +11,16 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => [User], { name: 'users' })
-  // @UseGuards(JwtAuthGuard)
-  // findAll() {
-  //   return this.usersService.findAll();
-  // }
   @UseGuards(JwtAuthGuard)
-  findAll(@Context() context) {
-    // Can determine which user is logged in/ requesting data
-    console.log(context.req.user);
+  findAll() {
     return this.usersService.findAll();
   }
+  // @UseGuards(JwtAuthGuard)
+  // findAll(@Context() context) {
+  //   // Can determine which user is logged in/ requesting data
+  //   console.log(context.req.user);
+  //   return this.usersService.findAll();
+  // }
 
   @Query(() => User, { name: 'user' })
   findOne(@Args('username', { type: () => Int }) username: string) {
