@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
@@ -11,8 +11,14 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => [User], { name: 'users' })
+  // @UseGuards(JwtAuthGuard)
+  // findAll() {
+  //   return this.usersService.findAll();
+  // }
   @UseGuards(JwtAuthGuard)
-  findAll() {
+  findAll(@Context() context) {
+    // Can determine which user is logged in/ requesting data
+    console.log(context.req.user);
     return this.usersService.findAll();
   }
 
